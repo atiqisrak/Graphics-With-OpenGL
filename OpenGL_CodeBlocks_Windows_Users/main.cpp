@@ -11,14 +11,14 @@
 using namespace std;
 
 #define eps 0.00001
-#define WINDOW_WIDTH 800.0
-#define WINDOW_HEIGHT 800.0
+#define WINDOW_WIDTH 500.0
+#define WINDOW_HEIGHT 500.0
 #define pi (2*acos(0.0))
 
 #define MAX_VAL 9999999
 #define MIN_VAL -9999999
 
-
+double angle;
 
 class Point
 {
@@ -70,7 +70,7 @@ public:
 
 };
 
-Point pos(0, 0, -100);
+Point pos(0, 0, -150);
 Point u(0,1,0);
 Point r(1, 0, 0);
 Point l(0, 0, 1);
@@ -466,12 +466,55 @@ void display(){
 	****************************/
 	//add objects
 
-	drawAxes();
 
-	glColor3f(1,0,0);
-    //drawSquare(20);
-    //glTranslatef(x,0,0);
-    drawCircle(20,80);
+
+
+       glBegin(GL_LINES);{
+            glColor3f( 1,0,0);
+			glVertex3f( 0,0,0);
+			glVertex3f( x,0,0);
+		}glEnd();
+
+       glBegin(GL_LINES);{
+            glColor3f( 0,1,0);
+			glVertex3f( 0,0,0);
+			glVertex3f( -x,0,0);
+		}glEnd();
+
+       glBegin(GL_LINES);{
+            glColor3f( 0,0,1);
+			glVertex3f( 0,0,0);
+			glVertex3f( 0,-x,0);
+		}glEnd();
+
+       glBegin(GL_LINES);{
+            glColor3f( 1,1,0);
+			glVertex3f( 0,0,0);
+			glVertex3f( 0,x,0);
+		}glEnd();
+
+
+    glColor3f(1,0,0);
+    glTranslatef(x,0,0);
+    drawSphere(10,24,80);
+    glTranslatef(-x,0,0);
+
+        glColor3f(0,1,0);
+    glTranslatef(-x,0,0);
+    drawSphere(10,24,80);
+    glTranslatef(x,0,0);
+
+        glColor3f(0,0,1);
+    glTranslatef(0,-x,0);
+    drawSphere(10,24,80);
+    glTranslatef(0,x,0);
+
+    glColor3f(1,1,0);
+    glTranslatef(0,x,0);
+    drawSphere(10,24,80);
+    glTranslatef(0,x,0);
+    Sleep(4);
+
 
 
 	//ADD this line in the end --- if you use double buffer (i.e. GL_DOUBLE)
@@ -482,15 +525,16 @@ void display(){
 void animate(){
 
 	//codes for any changes in Models, Camera
-   /*
+	//angle+=0.5;
+
 	if(flag==0){
         x++;
-        if(x>50) flag=1;
+        if(x>100) flag=1;
 	}
 	else if(flag==1){
         x--;
-        if(x<0) flag=0;
-	}*/
+        if(x<11) flag=0;
+	}
 
 	glutPostRedisplay();
 }
@@ -498,6 +542,7 @@ void animate(){
 void init(){
 	//codes for initialization
 
+	angle=0;
 	drawaxes=1;
 
 	x=0,flag=0;
